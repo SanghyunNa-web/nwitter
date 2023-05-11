@@ -2,6 +2,9 @@ import { dbService, storage } from "../fbase";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import {  ref, deleteObject } from "firebase/storage";
 import { useState } from "react";
+import React from "react";
+import "./Nweet.module.css"; // Import the CSS file
+import styles from "./Nweet.module.css"; // Import the CSS styles
 
 const Nweet = ({ nweetObj, isOwner }) => {
   const [editing, setEditing] = useState(false);
@@ -34,7 +37,7 @@ const Nweet = ({ nweetObj, isOwner }) => {
   };
 
   return (
-    <div>
+    <div  className={styles.nweetContainer}>
       {editing ? (
         <>
           <form onSubmit={onSubmit}>

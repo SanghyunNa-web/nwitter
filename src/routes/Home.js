@@ -1,10 +1,9 @@
 import { dbService, storage } from "../fbase";
 import { useState, useEffect } from "react";
-import { collection, addDoc, onSnapshot, query } from "firebase/firestore";
+import { collection, addDoc, onSnapshot, query, orderBy } from "firebase/firestore";
 import Nweet from "../components/Nweet";
 
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-
 
 
 const Home = ({ userObj }) => {
@@ -14,7 +13,9 @@ const Home = ({ userObj }) => {
   const [theFile, setTheFile] = useState(null);
 
   useEffect(() => {
-    const q = query(collection(dbService, "nweets"));
+    const q = query(collection(dbService, "nweets"),
+    orderBy("createdAt", "desc") // Add this line for ordering, "asc" in ascending order
+    );
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const nweetArray = snapshot.docs.map((doc) => ({
         id: doc.id,
